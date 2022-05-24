@@ -26,11 +26,11 @@ export default function Home({ banners, products }) {
           Lorem ipsum dolor sit amet, consetetur sadipscing elitr.
         </Text>
       </Box>
-      <Grid templateColumns='repeat(3, 1fr)' justifyContent="space-between" alignItems='center' gap={12}>
-        {products && products.length > 0 && products?.map((product, index) =>
-          <GridItem key={`product_${product?._id}_${index}`}>
-            <Product {...product} />
-          </GridItem>
+      <Grid w='4xl' templateColumns='repeat(3, 1fr)' mt='10' mx='auto' gap={12}>
+        {products && products.length > 0 && products?.filter(({ name, for_gallery }) =>  name && !for_gallery)?.map((product, index) =>
+        <GridItem key={`product_${product?._id}_${index}`} w='100%'>
+          <Product {...product} />
+        </GridItem>
         )}
       </Grid>
 

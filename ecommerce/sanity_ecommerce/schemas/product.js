@@ -37,6 +37,12 @@ export default {
             name: 'details',
             title: 'Details',
             type: 'string'
-        }
+        },
+        {
+            name: 'for_gallery',
+            title: 'For gallery',
+            type: '',
+            type: 'boolean'
+        },
     ]
 }
