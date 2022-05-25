@@ -4,7 +4,7 @@ import Head from 'next/head'
 
 import { Cart, Footer, FooterBanner, HeroBanner, Navbar, Product } from '../components';
 
-import { Box, Container, Grid, GridItem, Heading, Text } from '@chakra-ui/react'
+import { Box, Container, Flex, Grid, GridItem, Heading, HStack, Text } from '@chakra-ui/react'
 
 export default function Home({ banners, products }) {
   console.log('products', products)
@@ -16,7 +16,18 @@ export default function Home({ banners, products }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {banners && banners.length > 0 && < HeroBanner {...banners[0]} />}
+      {banners && banners.length > 0 &&
+        < HeroBanner {...banners[0]}
+        />
+      }
+
+      <Flex transform="translateX(20%)">
+        <HStack spacing={8}>
+          {products && products.length > 0 && products?.filter(({ name, for_gallery }) => name && for_gallery)?.map((product, index) => (
+            <Product isGallery key={`gallery_${product?._id}_${index}`} {...product} />
+          ))}
+        </HStack>
+      </Flex>
 
       <Box textAlign="center" py={10} px={6}>
         <Heading as="h2" size="xl" fontWeight='bold' mt={6} mb={2} color="blue.900">
@@ -27,10 +38,10 @@ export default function Home({ banners, products }) {
         </Text>
       </Box>
       <Grid w='4xl' templateColumns='repeat(3, 1fr)' mt='10' mx='auto' gap={12}>
-        {products && products.length > 0 && products?.filter(({ name, for_gallery }) =>  name && !for_gallery)?.map((product, index) =>
-        <GridItem key={`product_${product?._id}_${index}`} w='100%'>
-          <Product {...product} />
-        </GridItem>
+        {products && products.length > 0 && products?.filter(({ name, for_gallery }) => name && !for_gallery)?.map((product, index) =>
+          <GridItem key={`product_${product?._id}_${index}`} w='100%'>
+            <Product {...product} />
+          </GridItem>
         )}
       </Grid>
 
