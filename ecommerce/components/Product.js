@@ -14,12 +14,17 @@ import {
 
 const Product = ({ _id, details, image, name, price, slug, isGallery }) => {
   return (
-    <Center>
+    <Center
+      style={{cursor: 'pointer'}}
+      transition="transform 500ms ease-in"
+      _hover={{
+        transform: 'translateY(-10px)'
+      }}>
       <Box
         p={6}
         maxW={'300px'}
         w={'full'}
-        boxShadow={'2xl'}
+        boxShadow={'md'}
         rounded={'lg'}
         pos={'relative'}
         zIndex={1}>
@@ -37,12 +42,12 @@ const Product = ({ _id, details, image, name, price, slug, isGallery }) => {
             top: 5,
             left: 0,
             backgroundImage: `url(${urlFor(image[0])})`,
-            filter: 'blur(15px)',
+            filter: 'blur(10px)',
             zIndex: -1,
           }}
           _groupHover={{
             _after: {
-              filter: 'blur(20px)',
+              filter: 'blur(30px)',
             },
           }}>
           <Image

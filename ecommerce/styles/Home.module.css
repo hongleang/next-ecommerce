@@ -108,6 +108,24 @@
   margin-left: 0.5rem;
 }
 
+.swiper {
+  max-width: 700px;
+  padding: 50px 0px;
+}
+
+.swiper>div.swiper-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.swiper-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 400px;
+}
+
 @media (max-width: 600px) {
   .grid {
     width: 100%;

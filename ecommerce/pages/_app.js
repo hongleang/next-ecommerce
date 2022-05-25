@@ -1,4 +1,6 @@
 import '../styles/globals.css'
+import 'swiper/css';
+
 import { ChakraProvider } from '@chakra-ui/react'
 
 function MyApp({ Component, pageProps }) {

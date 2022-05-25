@@ -4,10 +4,14 @@ import Head from 'next/head'
 
 import { Cart, Footer, FooterBanner, HeroBanner, Navbar, Product } from '../components';
 
-import { Box, Container, Flex, Grid, GridItem, Heading, HStack, Text } from '@chakra-ui/react'
+import { Box, Container, Flex, Grid, GridItem, Heading, Stack, Text } from '@chakra-ui/react';
+
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, Pagination, Navigation } from "swiper";
+
+import styles from '../styles/Home.module.css'
 
 export default function Home({ banners, products }) {
-  console.log('products', products)
   return (
     <Container maxW='container.xl'>
       <Head>
@@ -16,18 +20,58 @@ export default function Home({ banners, products }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {banners && banners.length > 0 &&
-        < HeroBanner {...banners[0]}
-        />
-      }
+      <Box pos='relative' mb={{ base: 0, lg: 300 }}>
 
-      <Flex transform="translateX(20%)">
-        <HStack spacing={8}>
-          {products && products.length > 0 && products?.filter(({ name, for_gallery }) => name && for_gallery)?.map((product, index) => (
-            <Product isGallery key={`gallery_${product?._id}_${index}`} {...product} />
-          ))}
-        </HStack>
-      </Flex>
+        {banners && banners.length > 0 &&
+          < HeroBanner {...banners[0]} />
+        }
+        <Stack direction={{ base: "column", lg: 'row' }} pos={{ base: 'static', lg: 'absolute' }} bottom={-360} right={0} align={'center'} spacing={'md'}>
+          <Stack direction={'column'} spacing={1}>
+            <Text
+              fontSize={{ base: "xl", md: "xl", lg: "2xl" }}
+              lineHeight="shorter"
+            >
+              Our shop:
+            </Text>
+            <Text
+              mb={4}
+              fontSize={{ base: "4xl", md: "4xl", lg: "5xl" }}
+              lineHeight="shorter"
+              fontWeight="bold"
+            >
+              Feature products
+            </Text>
+          </Stack>
+          <Swiper
+            autoplay={{
+              delay: 3500,
+              disableOnInteraction: false,
+            }}
+            className={styles.swiper}
+            centeredSlides={true}
+            loop={true}
+            onSlideChange={() => console.log('slide change')}
+            onSwiper={(swiper) => console.log(swiper)}
+            navigation={true}
+            modules={[Autoplay, Pagination, Navigation]}
+            pagination={{
+              clickable: true,
+            }}
+            spaceBetween={15}
+            slidesPerView={3}
+
+          >
+            {products && products.length > 0 && products
+              ?.filter(({ name, for_gallery }) => name && for_gallery)
+              ?.map((product, index) => (
+                <SwiperSlide className={styles.swiper_slide}>
+                  <Product key={`gallery_${product?._id}_${index}`} isGallery  {...product} />
+                </SwiperSlide>
+              ))}
+          </Swiper>
+        </Stack>
+      </Box>
+
 
       <Box textAlign="center" py={10} px={6}>
         <Heading as="h2" size="xl" fontWeight='bold' mt={6} mb={2} color="blue.900">
