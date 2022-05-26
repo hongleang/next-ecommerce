@@ -6,22 +6,18 @@ import {
   Box,
   Button,
   chakra,
-  HStack,
   Flex,
-  Icon,
   Image,
   useColorModeValue,
-  Spacer,
   SimpleGrid,
-  Text
 } from "@chakra-ui/react";
 
-import Product from './Product'
+import styles from '../styles/components/HeroBanner.module.css'
 
 const HeroBanner = ({ buttonText, dec, discount, image, largeText1, largeText2, midText, products, smallText, scaleTime }) => {
   return (<>
-    <SimpleGrid w={{ base: 'full', lg: '6xl' }} h="lg" mt={{ base: 50, lg: 70 }} mx='auto' columns={{ base: 1, md: 2 }} spacing={0} bg="gray.100" overflow="initial" borderRadius="15px">
-      <Flex py={{ base: '100', md: '0' }} bg="brand.400" pos="relative" justify={"center"} alignItems="center">
+    <SimpleGrid className={styles.simpleGrid} w={{ base: 'full', lg: '6xl' }} h="lg" mt={{ base: 50, lg: 70 }} columns={{ base: 1, md: 2 }} spacing={0} bg="gray.100">
+      <Flex py={{ base: '100', md: '0' }} bg="brand.400" className={styles.image_wrapper}>
         {/* Blur effect*/}
         <Image
           pos="absolute"
@@ -51,16 +47,9 @@ const HeroBanner = ({ buttonText, dec, discount, image, largeText1, largeText2, 
           loading="lazy"
         />
       </Flex>
-      <Flex
-        direction="column"
-        alignItems="start"
-        justifyContent="center"
-        px={{ base: 4, md: 8, lg: 0 }}
-        py={{ base: 4, md: 8, lg: 24 }}
-        zIndex={3}
-      >
+      <Flex className={styles.flex_wrapper} px={{ base: 4, md: 8, lg: 0 }} py={{ base: 4, md: 8, lg: 24 }}>
         <chakra.span
-          color={useColorModeValue("brand.600", "gray.300")}
+          color={"brand.600"}
           fontSize="lg"
           textTransform="uppercase"
           fontWeight="extrabold"
@@ -71,8 +60,7 @@ const HeroBanner = ({ buttonText, dec, discount, image, largeText1, largeText2, 
           mb={4}
           fontSize={{ base: "4xl", md: "4xl", lg: "5xl" }}
           fontWeight="bold"
-          color={useColorModeValue("brand.600", "gray.300")}
-          lineHeight="shorter"
+          color={"brand.600"}
           textShadow="2px 0 currentcolor"
         >
           {largeText1}
@@ -124,7 +112,8 @@ const HeroBanner = ({ buttonText, dec, discount, image, largeText1, largeText2, 
             fontWeight="bold"
             w="full"
             rounded="md"
-            colorScheme='teal' size='sm'
+            colorScheme='teal' 
+            size='sm'
           >
             {buttonText}
           </Button>
