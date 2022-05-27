@@ -21,15 +21,11 @@ const Gallery = ({ products = [] }) => {
                 </Text>
             </Stack>
             <Swiper
-                autoplay={{
-                    delay: 3500,
-                    disableOnInteraction: false,
-                }}
                 className={styles.swiper}
                 centeredSlides={true}
                 loop={true}
                 navigation={true}
-                modules={[Autoplay, Pagination, Navigation]}
+                modules={[Pagination, Navigation]}
                 pagination={{
                     clickable: true,
                 }}
@@ -40,8 +36,8 @@ const Gallery = ({ products = [] }) => {
                 {products.length > 0 && products
                     ?.filter(({ name, for_gallery }) => name && for_gallery)
                     ?.map((product, index) => (
-                        <SwiperSlide className={styles.swiper_slide}>
-                            <Product key={`gallery_${product?._id}_${index}`} isGallery  {...product} />
+                        <SwiperSlide key={`gallery_${product?._id}_${index}`} className={`${styles.swiper_slide} track`}>
+                            <Product isGallery  {...product} />
                         </SwiperSlide>
                     ))}
             </Swiper>

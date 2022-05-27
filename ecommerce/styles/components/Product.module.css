@@ -1,6 +1,6 @@
 .product_wrapper {
     cursor: pointer;
-    transition: transform 400ms cubic-bezier(0.075, 0.82, 0.165, 1);
+    transition: transform 400ms ease;
 }
 
 .product_wrapper:hover {
@@ -30,5 +30,4 @@
     left: 0;
     height: 230px;
     background-image: var(--background-image);
-    
 }

@@ -10,7 +10,7 @@ import styles from '../styles/components/Product.module.css'
 const Product = ({ _id, details, image, name, price, slug, isGallery }) => {
   return (
     <Box className={styles.product_wrapper}>
-      <Link href={{ pathname: `/products/${slug.current}`, query: { product_id: _id} }}>
+      <Link href={{ pathname: `/products/${slug.current}/{}`, query: { product_id: _id} }}>
         <Box className={styles.product_container} boxShadow={'md'} rounded={'lg'} zIndex={1}>
           {image && image?.length > 0 && <Box
             className={styles.image_wrapper}

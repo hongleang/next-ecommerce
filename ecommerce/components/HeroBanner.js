@@ -20,6 +20,7 @@ const HeroBanner = ({ buttonText, dec, discount, image, largeText1, largeText2, 
       <Flex py={{ base: '100', md: '0' }} bg="brand.400" className={styles.image_wrapper}>
         {/* Blur effect*/}
         <Image
+          className={styles.scale_in_bl}
           pos="absolute"
           top="10"
           left="-10"
@@ -35,6 +36,7 @@ const HeroBanner = ({ buttonText, dec, discount, image, largeText1, largeText2, 
           loading="lazy"
         />
         <Image
+          className='scale_in_bl'
           pos="absolute"
           top={{ base: 0, lg: "-50" }}
           src={urlFor(image)}
@@ -47,7 +49,7 @@ const HeroBanner = ({ buttonText, dec, discount, image, largeText1, largeText2, 
           loading="lazy"
         />
       </Flex>
-      <Flex className={styles.flex_wrapper} px={{ base: 4, md: 8, lg: 0 }} py={{ base: 4, md: 8, lg: 24 }}>
+      <Flex className={styles.flex_wrapper} px={{ base: 4, md: 8, lg: 0 }} py={{ base: 4, md: 8, lg: 8 }}>
         <chakra.span
           color={"brand.600"}
           fontSize="lg"
@@ -100,24 +102,20 @@ const HeroBanner = ({ buttonText, dec, discount, image, largeText1, largeText2, 
           </chakra.h2>
         </Flex>
 
-        <Box display="inline-flex" rounded="md" shadow="md">
-          <Button
-            mt={2}
-            display="inline-flex"
-            alignItems="center"
-            justifyContent="center"
-            px={5}
-            py={3}
-            border="solid transparent"
-            fontWeight="bold"
-            w="full"
-            rounded="md"
-            colorScheme='teal' 
-            size='sm'
-          >
-            {buttonText}
-          </Button>
-        </Box>
+        <Button
+          rounded={'none'}
+          w={'1/2'}
+          size={'md'}
+          my={'5'}
+          bg={'gray.900'}
+          color={'white'}
+          textTransform={'uppercase'}
+          _hover={{
+            transform: 'translateY(2px)',
+            boxShadow: 'lg',
+          }}>
+          {buttonText}
+        </Button>
       </Flex>
     </SimpleGrid>
   </>
