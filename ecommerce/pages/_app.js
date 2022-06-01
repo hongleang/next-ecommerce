@@ -2,11 +2,14 @@ import '../styles/globals.css'
 import 'swiper/css';
 
 import { ChakraProvider } from '@chakra-ui/react'
+import { CartProvider } from '../context/cart-context'
 
 function MyApp({ Component, pageProps }) {
   return (
     <ChakraProvider>
-      <Component {...pageProps} />
+      <CartProvider >
+        <Component {...pageProps} />
+      </CartProvider>
     </ChakraProvider>
   )
 }

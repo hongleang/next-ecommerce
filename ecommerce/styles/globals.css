@@ -14,17 +14,15 @@ a {
 * {
   box-sizing: border-box;
 }
-
-.scale_in_bl {
-	animation: scale-in-bl 2s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-}
-
-.track {
-  animation: marquee 10s linear infinite;
-  width: 5500%
-}
-
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-100%); }
+.cart-icon {
+  position: absolute;
+  top: 3px;
+  right: -1px;
+  padding: .7em .5em;
+  font-size: .6em;
+  background-color: rgb(31, 31, 31);
+  color: rgb(132, 132, 132);
+  font-weight: bold;
+  transform: translate(50%, -50%);
+  border-radius: 14%
 }
