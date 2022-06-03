@@ -16,7 +16,7 @@ import styles from '../styles/components/HeroBanner.module.css'
 
 const HeroBanner = ({ buttonText, image, largeText1, midText, smallText }) => {
   return (<>
-    <SimpleGrid className={styles.simpleGrid} w="full" h="lg" mt={{ base: 50, lg: 70 }} columns={{ base: 1, md: 2 }} spacing={0} bg={useColorModeValue('gray.100', 'gray.900')}>
+    <SimpleGrid className={styles.simpleGrid} w="full" h="auto" mt={{ base: 50, lg: 70 }} columns={{ base: 1, md: 2 }} spacing={0} bg={useColorModeValue('gray.100', 'gray.900')}>
       <Flex py={{ base: '100', md: '0' }} bg="brand.400" className={styles.image_wrapper}>
         {/* Blur effect*/}
         <Image

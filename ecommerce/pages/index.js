@@ -1,17 +1,14 @@
 import { client } from '../libs/client';
 
 
-import { Cart, Footer, Gallery, HeroBanner, Product, PageLayout } from '../components';
+import { Footer, Gallery, HeroBanner, Product } from '../components';
 
-import { Box, Button, Grid, GridItem, Heading, Text } from '@chakra-ui/react';
-import { useCart } from '../context/cart-context';
-
+import { Box, Grid, GridItem, Heading, Text } from '@chakra-ui/react';
 
 export default function Home({ banners, products }) {
-  const { state, dispatch } = useCart()
-  console.log('dispatch', dispatch)
+
   return (
-    <PageLayout title="Ecommerce products page">
+    <>
       <Box pos='relative' mb={{ base: 0, lg: 300 }}>
         {banners && banners.length > 0 &&
           < HeroBanner {...banners[0]} />
@@ -23,7 +20,6 @@ export default function Home({ banners, products }) {
         <Heading as="h2" size="xl" fontWeight='bold' mt={6} mb={2} color="blue.900">
           Best Sellers Products
         </Heading>
-        <Button colorScheme='blue' onClick={() => dispatch({ type: 'add' })}>Fuck me!</Button>
         <Text color={'gray.500'}>
           Lorem ipsum dolor sit amet, consetetur sadipscing elitr.
         </Text>
@@ -35,8 +31,7 @@ export default function Home({ banners, products }) {
           </GridItem>
         )}
       </Grid>
-      <Footer />
-    </PageLayout>
+    </>
   )
 }
 

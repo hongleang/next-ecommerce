@@ -11,7 +11,7 @@ const default_meta = {
 
 export default function PageLayout({ title='Ecommerce site', meta = default_meta, children }) {
     return (
-        <Container maxW='container.xl' mx={'auto'}>
+        <Container maxW='container.xl' mx={'auto'} mt={5} mb={10}>
             <Head>
                 <title>{title}</title>
                 <meta name={meta.name} content={meta.content} />

@@ -4,49 +4,78 @@ import { client } from '../../libs/client';
 
 import { urlFor } from '../../libs/client';
 
-import { PageLayout } from '../../components'
+import { useCart } from '../../context/cart-context';
+
+import { HiPlus, HiMinus } from 'react-icons/hi'
 
 import {
   Box,
-  chakra,
+  ButtonGroup,
+  Button,
   Container,
   Stack,
   Text,
   Image,
   Flex,
   VStack,
-  Button,
   Heading,
   SimpleGrid,
   StackDivider,
   useColorModeValue,
-  VisuallyHidden,
   List,
   ListItem,
 } from '@chakra-ui/react';
 
-import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa';
 import { MdLocalShipping } from 'react-icons/md';
 
+import { Swiper, SwiperSlide } from "swiper/react";
+
+import { FreeMode, Navigation, Thumbs } from "swiper";
+
+
 export default function product({ product }) {
-  const { details, image, name, price } = product[0]
+  const { details, image, name, price } = product
+
+  const { onAddToCart } = useCart()
+
+  const [quantities, setQuantities] = React.useState(0);
+
+  const addQuantity = () => setQuantities((prevQuantity) => prevQuantity + 1);
+  const decreaseQuantity = () => setQuantities((prevQuantity) => prevQuantity > 0 ? prevQuantity - 1 : 0);
+
   return (
-    <PageLayout>
+    <>
       <Container maxW={'7xl'}>
         <SimpleGrid
           columns={{ base: 1, lg: 2 }}
           spacing={{ base: 8, md: 10 }}
           py={{ base: 18, md: 24 }}>
           <Flex>
-            <Image
-              rounded={'md'}
-              alt={'product image'}
-              src={urlFor(image[0])}
-              fit={'cover'}
-              align={'center'}
-              w={'100%'}
-              h={{ base: '100%', sm: '600px', lg: '700px' }}
-            />
+            <Swiper
+              style={{
+                "--swiper-navigation-color": "#fff",
+                "--swiper-pagination-color": "#fff",
+              }}
+              spaceBetween={10}
+              navigation={true}
+              modules={[FreeMode, Navigation, Thumbs]}
+              className="mySwiper2"
+            >{image?.map((im, i) => (<>
+              <SwiperSlide key={`product-swiper-${i}`}>
+                <Image
+                  rounded={'md'}
+                  alt={'product image'}
+                  src={urlFor(im)}
+                  fit={'cover'}
+                  align={'center'}
+                  w={'100%'}
+                  h={{ base: '100%', sm: '600px', lg: '700px' }}
+                />
+              </SwiperSlide>
+            </>
+            ))}
+            </Swiper>
+           
           </Flex>
           <Stack spacing={{ base: 6, md: 10 }}>
             <Box as={'header'}>
@@ -107,7 +136,13 @@ export default function product({ product }) {
                 </List>
               </Box>
             </Stack>
-
+            <Stack direction={'row'} w='full'>
+              <Button colorScheme={'white'} variant={"outline"} onClick={addQuantity}><HiPlus /></Button>
+              <Button colorScheme={'white'} variant={'outline'} onClick={decreaseQuantity}><HiMinus /></Button>
+              <Flex w={'full'} borderWidth='1px' borderRadius='lg' justify={'center'} alignItems={'center'} textColor={'gray.500'}>
+                {quantities}
+              </Flex>
+            </Stack>
             <Button
               rounded={'none'}
               w={'full'}
@@ -120,7 +155,9 @@ export default function product({ product }) {
               _hover={{
                 transform: 'translateY(2px)',
                 boxShadow: 'lg',
-              }}>
+              }}
+              onClick={() => onAddToCart(product, quantities)}
+            >
               Add to cart
             </Button>
 
@@ -131,7 +168,7 @@ export default function product({ product }) {
           </Stack>
         </SimpleGrid>
       </Container>
-    </PageLayout>
+    </>
   )
 }
 
@@ -147,11 +184,20 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(context) {
   const { params: { product_slug } } = context
+
+  // Get prodcut id from from product slug
   const query = `*[_type == "product" && _id == "${product_slug[1]}"]`;
   const product = await client.fetch(query);
+
+  // Show page not found if product is not found
+  if (!product || product.length === 0) {
+    return {
+      notFound: true,
+    }
+  }
   return {
     props: {
-      product
+      product: product[0] // Single item in the collection
     },
     revalidate: 10, // In seconds
   };

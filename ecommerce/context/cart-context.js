@@ -1,26 +1,45 @@
-import * as React from 'react'
+import React, { useState, useCallback } from 'react'
 
 const CartContext = React.createContext()
 
-function cartReducer(state, action) {
-    console.log('act', action)
-    switch (action.type) {
-        case 'add': {
-            return { count: state.count + 1 }
-        }
-        case 'remove': {
-            return { count: state.count - 1 }
-        }
-        default: {
-            throw new Error(`Unhandled action type: ${action.type}`)
-        }
-    }
-}
-
 function CartProvider({ children }) {
-    const [state, dispatch] = React.useReducer(cartReducer, { count: 0 })
-    const value = { state, dispatch }
-    return <CartContext.Provider value={value}>{children}</CartContext.Provider>
+    const [showCart, setShowCart] = useState(false);
+    const [cartItems, setCartItems] = useState([]);
+
+    const onAddToCart = useCallback((prodcut, quantities) => {
+        const cartIndex = cartItems.findIndex(ct => ct._id === prodcut._id)
+        const newCart = [...cartItems];
+        if (cartIndex >= 0) {
+            newCart[cartIndex].totalQuantities = newCart[cartIndex].totalQuantities + quantities;
+            newCart[cartIndex].totalPrice = newCart[cartIndex].totalPrice + (newCart[cartIndex].totalQuantities * prodcut.price)
+            setCartItems(newCart);
+        } else {
+            const newItem = Object.assign(prodcut, {});
+            newItem.totalPrice = newItem.price * quantities;
+            newItem.totalQuantities = quantities
+            setCartItems([...cartItems, newItem])
+        }
+    }, [cartItems]);
+
+    const onRemoveCart = (prodcut) => {
+        const newCart = [...cartItems].filter(item => item._id !== prodcut._id);
+        setCartItems(newCart);
+    }
+
+    const clearCart = () => {
+        setCartItems([]);
+    }
+
+    return <CartContext.Provider
+        value={{
+            showCart,
+            cartItems,
+            onAddToCart,
+            onRemoveCart,
+            clearCart
+        }}>
+        {children}
+    </CartContext.Provider>
 }
 
 function useCart() {

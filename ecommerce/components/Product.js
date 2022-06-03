@@ -3,14 +3,14 @@ import Link from 'next/link'
 
 import { urlFor } from '../libs/client';
 
-import { Box, Center, Heading, Text, Stack, Image, Divider } from '@chakra-ui/react';
+import { Box, Heading, Text, Stack, Image } from '@chakra-ui/react';
 
 import styles from '../styles/components/Product.module.css'
 
 const Product = ({ _id, details, image, name, price, slug, isGallery }) => {
   return (
     <Box className={styles.product_wrapper}>
-      <Link href={{ pathname: `/products/${slug.current}/{}`, query: { product_id: _id} }}>
+      <Link href={{ pathname: `/products/${slug.current}/${_id}` }}>
         <Box className={styles.product_container} boxShadow={'md'} rounded={'lg'} zIndex={1}>
           {image && image?.length > 0 && <Box
             className={styles.image_wrapper}

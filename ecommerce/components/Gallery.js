@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, Pagination, Navigation } from "swiper";
+import { Pagination, Navigation } from "swiper";
 
 import { Stack, Text } from '@chakra-ui/react';
 
@@ -11,7 +11,7 @@ import styles from '../styles/Home.module.css'
 
 const Gallery = ({ products = [] }) => {
     return (
-        <Stack direction={{ base: "column", lg: 'row' }} pos={{ base: 'static', lg: 'absolute' }} bottom={-360} right={0} align={'center'} spacing={'md'}>
+        <Stack direction={{ base: "column", lg: 'row' }} pos={{ base: 'static', lg: 'absolute' }} bottom={-380} right={0} align={'center'} spacing={'md'}>
             <Stack direction={'column'} spacing={1}>
                 <Text fontSize={{ base: "xl", md: "xl", lg: "2xl" }}>
                     Our shop:
@@ -23,16 +23,17 @@ const Gallery = ({ products = [] }) => {
             <Swiper
                 className={styles.swiper}
                 centeredSlides={true}
-                loop={true}
                 navigation={true}
+                loop={true}
                 modules={[Pagination, Navigation]}
-                pagination={{
-                    clickable: true,
-                }}
                 spaceBetween={15}
                 slidesPerView={3}
-
-            >
+                style={{
+                    "--swiper-navigation-color": "gray",
+                    "--swiper-pagination-color": "gray",
+                    padding: '1em 2em',
+                    width: '75%'
+                }}            >
                 {products.length > 0 && products
                     ?.filter(({ name, for_gallery }) => name && for_gallery)
                     ?.map((product, index) => (
