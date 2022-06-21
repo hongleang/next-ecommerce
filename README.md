@@ -12,10 +12,9 @@ A learning project that I build to learn new technology such as Next js, routing
 `git clone https://github.com/hongleang/next-ecommerce.git`
 
 
-### Executing program
-`cd next-ecommerce`
-`cd ecommerce`
-`npm run dev`
+### Preview
+![ezgif com-gif-maker](https://user-images.githubusercontent.com/73740288/174755933-eeeac88f-b22a-4ca4-bd77-6e92f3b7f517.gif)
+
 
 ## Authors
 
